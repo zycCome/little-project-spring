@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruyuan.little.project.spring.mapper.TeacherMapper">
+
+    <select id="selectAll" resultType="com.ruyuan.little.project.spring.dto.Teacher">
+        select * from t_teacher
+    </select>
+
+    <select id="selectOne" resultType="com.ruyuan.little.project.spring.dto.Teacher">
+        select * from t_teacher where id = #{id}
+    </select>
+
+    <select id="findByName" resultType="com.ruyuan.little.project.spring.dto.Teacher">
+        select * from t_teacher where teacher_name = #{name}
+    </select>
+
+
+    <select id="getPage" parameterType="com.ruyuan.little.project.spring.dto.Teacher"
+            resultType="com.ruyuan.little.project.spring.dto.Teacher">
+        select * from t_teacher
+        where 1 = 1
+        <if test="id != null and id !=''">
+            And id = #{id}
+        </if>
+        <if test="teacherName != null and teacherName !=''">
+            And teacher_name = #{teacherName}
+        </if>
+        <if test="course != null and course !=''">
+            And course = #{course}
+        </if>
+        <if test="score != null and score !='' and score >0">
+            And score = #{score}
+        </if>
+        <if test="teachingDays != null and teachingDays !='' and teachingDays >0">
+            And teaching_days = #{teachingDays}
+        </if>
+        <if test="status != null and status !=''">
+            And status = #{status}
+        </if>
+        <if test="teachingCount != null and teachingCount !='' and teachingCount >0">
+            And teaching_count = #{teachingCount}
+        </if>
+        <if test="priceOfDay != null and priceOfDay !='' and priceOfDay >0">
+            And price_of_day = #{priceOfDay}
+        </if>
+        <if test="description != null and description !=''">
+            And description = #{description}
+        </if>
+        <if test="photo != null and photo !=''">
+            And photo = #{photo}
+        </if>
+        <if test="detail != null and detail !=''">
+            And detail = #{detail}
+        </if>
+        limit #{startIndex},#{endIndex}
+    </select>
+
+    <select id="getPageTotal" parameterType="com.ruyuan.little.project.spring.dto.Teacher" resultType="Integer">
+        select count(1) from t_teacher
+        where 1 = 1
+        <if test="id != null and id !=''">
+            And id = #{id}
+        </if>
+        <if test="teacherName != null and teacherName !=''">
+            And teacher_name = #{teacherName}
+        </if>
+        <if test="course != null and course !=''">
+            And course = #{course}
+        </if>
+        <if test="score != null and score !='' and score >0">
+            And score = #{score}
+        </if>
+        <if test="teachingDays != null and teachingDays !='' and teachingDays >0">
+            And teaching_days = #{teachingDays}
+        </if>
+        <if test="status != null and status !=''">
+            And status = #{status}
+        </if>
+        <if test="teachingCount != null and teachingCount !='' and teachingCount >0">
+            And teaching_count = #{teachingCount}
+        </if>
+        <if test="priceOfDay != null and priceOfDay !='' and priceOfDay >0">
+            And price_of_day = #{priceOfDay}
+        </if>
+        <if test="description != null and description !=''">
+            And description = #{description}
+        </if>
+        <if test="photo != null and photo !=''">
+            And photo = #{photo}
+        </if>
+        <if test="detail != null and detail !=''">
+            And detail = #{detail}
+        </if>
+    </select>
+
+    <update id="updateTeacherList" parameterType="List">
+        <foreach collection="list" item="item" separator=";">
+            update t_teacher
+            set teaching_count = #{item.teachingCount},
+            score = #{item.score}
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <update id="updateTeachingDays" parameterType="com.ruyuan.little.project.spring.dto.Teacher">
+            update t_teacher
+            set teaching_days = #{teachingDays}
+            where id = #{id}
+    </update>
+
+</mapper>
